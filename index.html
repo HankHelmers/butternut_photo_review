@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dense Scrollable Image Gallery</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background: #111;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    overflow: hidden; /* only right panel scrolls */
+    font-family: sans-serif;
+  }
+
+  /* Left content area */
+  .left-panel {
+    flex: 1;
+    background: #1a1a1a;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Right-side image gallery */
+  .image-gallery {
+    display: grid;
+    grid-auto-flow: row dense;
+    justify-items: center;
+    align-items: center;
+    background: #000;
+    overflow-y: auto;
+    overflow-x: hidden;
+    gap: 6px;
+    padding: 6px;
+    box-sizing: border-box;
+    transition: all 0.5s ease;
+    height: 100vh;
+  }
+
+  /* On smaller screens: full width */
+  .image-gallery {
+    width: 100vw;
+  }
+
+  /* On wide screens: right half only */
+  @media (min-width: 1200px) {
+    .image-gallery {
+      width: 50vw;
+      margin-left: auto;
+      border-left: 2px solid #222;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+    }
+    .left-panel { display: flex; }
+  }
+
+  /* Hide left panel on smaller screens */
+  @media (max-width: 1199px) {
+    .left-panel { display: none; }
+  }
+
+  /* Auto-fitting grid that packs as many images as possible per screen height */
+  .image-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 150px; /* controls density vertically */
+  }
+
+  /* Images maintain aspect ratio but fill cell space */
+  .image-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #000;
+  }
+
+  /* Optional hover effect */
+  .image-gallery img:hover {
+    transform: scale(1.03);
+    transition: transform 0.2s ease;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+
+  <div class="left-panel">
+    <h1>Left Panel Content</h1>
+  </div>
+
+  <div class="image-gallery" id="gallery"></div>
+
+  <script>
+    const images = [
+      "https://picsum.photos/id/1015/1200/800",
+      "https://picsum.photos/id/1025/800/600",
+      "https://picsum.photos/id/1035/600/600",
+      "https://picsum.photos/id/1045/900/700",
+      "https://picsum.photos/id/1055/700/500",
+      "https://picsum.photos/id/1065/1000/750"
+    ];
+
+    const gallery = document.getElementById("gallery");
+
+    images.forEach(url => {
+      const img = document.createElement("img");
+      img.src = url;
+      gallery.appendChild(img);
+    });
+  </script>
+
+</body>
+</html>
