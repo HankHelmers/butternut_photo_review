@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Folder Image Viewer</title>
+<style>
+  body {
+    margin: 0;
+    background: #111;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  /* Image grid container */
+  .image-grid {
+    display: grid;
+    gap: 6px;
+    padding: 6px;
+    grid-auto-rows: minmax(100px, auto);
+    justify-items: center;
+    align-items: center;
+    width: 50vw;
+    background: #000;
+    overflow-y: auto;
+  }
+
+  @media (max-width: 1200px) {
+    .image-grid {
+      width: 100vw;
+    }
+  }
+
+  .image-grid img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+  }
+
+  .image-grid img:hover {
+    transform: scale(1.02);
+  }
+</style>
+</head>
+<body>
+
+  <div class="image-grid" id="grid"></div>
+
+  <script>
+    // Loading a set of photos from some source
+
+    // Folder of photos
+    let img = "/imgs"
+    for(i in img) {
+        console.log(i);
+    }
+    
+    // access photos within that folder with index
+
+
+    // render those photos by index
+    const grid = document.getElementById("grid");
+
+    /**
+     * Renders a subset of images from the array.
+     * @param {number} start - Starting index (inclusive)
+     * @param {number} end - Ending index (exclusive)
+     */
+    function renderImages(start, end) {
+      grid.innerHTML = ""; // clear current grid
+      const subset = img.slice(start, end);
+
+      // dynamic grid layout
+      const cols = Math.ceil(Math.sqrt(subset.length));
+      grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+
+      subset.forEach(src => {
+        const img = document.createElement("img");
+        img.src = src;
+        grid.appendChild(img);
+      });
+    }
+
+    // Example usage:
+    renderImages(0, 6); // show first 6 images
+  </script>
+</body>
+</html>
