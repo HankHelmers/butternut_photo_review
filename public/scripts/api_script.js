@@ -8,7 +8,7 @@ import { clientId, key } from './secrets.js'
 // TODO(developer): Set to client ID and API key from the Developer Console
 const CLIENT_ID = clientId;
 const API_KEY = key;
-const REDIRECT_URI = "http://localhost:5500/public"
+const REDIRECT_URI = "http://localhost:5500"
 
 // reference for setting scopes: https://developers.google.com/workspace/drive/api/guides/api-specific-auth#node.js
 // scopes set in configuration: .../auth/drive.readonly	.../auth/drive.metadata
@@ -82,6 +82,6 @@ async function getAllFiles() {
 
 window.addEventListener("load", (event) => {
     // console.log(clientId);
-    oauthSignIn();
+    // oauthSignIn();
     // getAllFiles();
 });
